@@ -1,0 +1,25 @@
+Rows in file: 22,699
+Card or cash trips: 22,532
+
+Data quality flags (card and cash trips)
+  fare <= 0: 4
+  distance <= 0: 125
+  duration <= 0: 25
+  duration > 180 min: 45
+  fare > 200: 3
+  cash trip with a recorded tip: 0
+Trips kept after filtering: 22,359 (removed 173)
+
+Welch comparisons, USD
+total_amount, unfiltered (original)    card  17.66  cash  13.55  diff  4.12 [95% CI  3.72,  4.51]  d=0.26  t=20.35  p=4.5e-91  n=15,265/7,267
+fare_amount, unfiltered                card  13.43  cash  12.21  diff  1.22 [95% CI  0.87,  1.56]  d=0.09  t= 6.87  p=6.8e-12  n=15,265/7,267
+total_amount, filtered                 card  17.44  cash  13.51  diff  3.94 [95% CI  3.59,  4.28]  d=0.30  t=22.56  p=4.2e-111  n=15,181/7,178
+fare_amount, filtered                  card  13.25  cash  12.17  diff  1.08 [95% CI  0.78,  1.37]  d=0.10  t= 7.11  p=1.2e-12  n=15,181/7,178
+trip_distance (miles), filtered        card   3.04  cash   2.67  diff  0.37 [95% CI  0.27,  0.47]  d=0.10  t= 7.30  p=3.1e-13  n=15,181/7,178
+
+Recorded tips account for 2.70 of the 3.94 filtered total_amount gap (69%).
+
+OLS on fare_amount, HC3 robust standard errors (association, not causation)
+  fare_amount ~ card                                             card= 1.077 [ 0.780,  1.373] p=1.1e-12 R2=0.002
+  fare_amount ~ card + trip_distance                             card= 0.049 [-0.055,  0.152] p=0.36 R2=0.879
+  fare_amount ~ card + trip_distance + minutes + C(RatecodeID)   card= 0.050 [-0.017,  0.118] p=0.14 R2=0.952
